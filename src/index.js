@@ -174,6 +174,10 @@ function clearScore() {
 function updateTimer() {
   // TODO: Write your code here.
   // hint: this code is provided to you in the instructions.
+  if (time > 0) {
+    time--;
+    timerDisplay.textContent = time;
+  }
   
   return time;
 }
@@ -185,8 +189,7 @@ function updateTimer() {
 *
 */
 function startTimer() {
-  // TODO: Write your code here
-  // timer = setInterval(updateTimer, 1000);
+  timer = setInterval(updateTimer, 1000);
   return timer;
 }
 
@@ -210,7 +213,7 @@ function whack(event) {
 */
 function setEventListeners(){
   for (let mole in moles) {
-    mole.addEventListener(event => whack(event));
+    mole.addEventListener("click", whack);
   }
   return moles;
 }
