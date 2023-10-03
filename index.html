@@ -4,44 +4,58 @@
   </head>
   <body>
     <h1 id="title">Pet-a-Zombie</h1>
-    <div>
-      <div>
-        <h2>Click <button id="start">start</button> to play!</h2>
-      </div>
-      <div>
-        <h2>score: <span id="score">0</span></h2>
-      </div>
-      <div>
+    <div class="group gameboard">
+      <div class="dashboard">
+        <div>
+          <h2><button id="start">RELEASE ZOMBIES</button></h2>
+        </div>
+        <div class="toggle">
+          <button class="level" id="easy">EASY</button>
+          <button class="level" id="normal">NORMAL</button>
+          <button class="level active" id="hard">HARD</button>
+        </div>
+        <div>
+          <h2>Score: <span id="score">0</span></h2>
+        </div>
+        <div>
           <h2><span id="timer">0</span> seconds left.</h2>
+        </div>
+        <hr>
+        <div>
+          <h3>Session Record: <span id="record">0</span></h3>
+        </div>
+        <div>
+          <p>© 2023 <a href="htpps://lenar.io" class="lenar" target="_blank">Lenar.io</a></p>
+        </div>
       </div>
-    </div>
-    <div class="grid">
-      <div id="hole0" class="hole">
-        <div id="mole0" class="mole"></div>
-      </div>
-      <div id="hole1" class="hole">
-        <div id="mole1" class="mole"></div>
-      </div>
-      <div id="hole2" class="hole">
-        <div id="mole2" class="mole"></div>
-      </div>
-      <div id="hole3" class="hole">
-        <div id="mole3" class="mole"></div>
-      </div>
-      <div id="hole4" class="hole">
-        <div id="mole4" class="mole"></div>
-      </div>
-      <div id="hole5" class="hole">
-        <div id="mole5" class="mole"></div>
-      </div>
-      <div id="hole6" class="hole">
-        <div id="mole6" class="mole"></div>
-      </div>
-      <div id="hole7" class="hole">
-        <div id="mole7" class="mole"></div>
-      </div>
-      <div id="hole8" class="hole">
-        <div id="mole8" class="mole"></div>
+      <div class="grid">
+        <div id="hole0" class="hole">
+          <div id="mole0" class="mole"></div>
+        </div>
+        <div id="hole1" class="hole">
+          <div id="mole1" class="mole"></div>
+        </div>
+        <div id="hole2" class="hole">
+          <div id="mole2" class="mole"></div>
+        </div>
+        <div id="hole3" class="hole">
+          <div id="mole3" class="mole"></div>
+        </div>
+        <div id="hole4" class="hole">
+          <div id="mole4" class="mole"></div>
+        </div>
+        <div id="hole5" class="hole">
+          <div id="mole5" class="mole"></div>
+        </div>
+        <div id="hole6" class="hole">
+          <div id="mole6" class="mole"></div>
+        </div>
+        <div id="hole7" class="hole">
+          <div id="mole7" class="mole"></div>
+        </div>
+        <div id="hole8" class="hole">
+          <div id="mole8" class="mole"></div>
+        </div>
       </div>
     </div>
     <script src="./src/index.js"></script>

@@ -3,12 +3,34 @@ const moles = document.querySelectorAll('.mole');
 const startButton = document.querySelector('#start');
 const score = document.querySelector('#score');
 const timerDisplay = document.querySelector('#timer');
+const record = document.querySelector('#record');
+const easy = document.querySelector('#easy');
+const normal = document.querySelector('#normal');
+const hard = document.querySelector('#hard');
+
+const audioHit = new Audio("./assets/punch.mp3");
+const song = new Audio("./assets/music.mp3");
+const ghost = new Audio("./assets/ghost.mp3");
 
 let time = 0;
 let timer;
 let lastHole = 0;
 let points = 0;
 let difficulty = "hard";
+let sessionRecord = 0;
+
+function playAudio(audioObject) {
+  audioObject.play();
+}
+
+function loopAudio(audioObject) {
+  audioObject.loop = true;
+  playAudio(audioObject);
+}
+
+function stopAudio(audioObject) {
+  audioObject.pause();
+}
 
 /**
  * Generates a random integer within a range.
@@ -198,6 +220,7 @@ function startTimer() {
 *
 */
 function whack() {
+  playAudio(audioHit);
   updateScore();
   return points;
 }
@@ -224,13 +247,52 @@ function setDuration(duration) {
 }
 
 /**
+ * Updates the session record if a player scored more then the current session record
+ */
+function updateRecord() {
+  if (points > sessionRecord) sessionRecord = points;
+  record.textContent = sessionRecord; 
+}
+
+/**
+ * Setting listeners for the level toggle
+ */
+function setLevelEventListeners(){
+  easy.addEventListener("click", () => {
+    difficulty = 'easy';
+    if (!easy.classList.contains("active")) {
+      easy.classList.add('active');
+      if (normal.classList.contains("active")) normal.classList.remove("active");
+      if (hard.classList.contains("active")) hard.classList.remove("active");
+    }
+  })
+  normal.addEventListener("click", () => {
+    difficulty = 'normal';
+    if (!normal.classList.contains("active")) {
+      normal.classList.add('active');
+      if (easy.classList.contains("active")) easy.classList.remove("active");
+      if (hard.classList.contains("active")) hard.classList.remove("active");
+    }  
+  })
+  hard.addEventListener("click", () => {
+    difficulty = 'hard';
+    if (!hard.classList.contains("active")) {
+      hard.classList.add('active');
+      if (easy.classList.contains("active")) easy.classList.remove("active");
+      if (normal.classList.contains("active")) normal.classList.remove("active");
+    }  
+  })
+}
+
+/**
 *
 * This function is called when the game is stopped. It clears the
 * timer using clearInterval. Returns "game stopped".
 *
 */
 function stopGame(){
-  // stopAudio(song);  //optional
+  stopAudio(song);
+  updateRecord();
   clearInterval(timer);
   return "game stopped";
 }
@@ -247,11 +309,14 @@ function startGame(){
   showUp();
   startTimer();
   clearScore();
+  playAudio(song);
+  loopAudio(ghost);
   return "game started";
 }
 
 startButton.addEventListener("click", startGame);
 
+document.addEventListener('DOMContentLoaded', setLevelEventListeners);
 
 // Please do not modify the code below.
 // Used for testing purposes.
