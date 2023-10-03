@@ -59,14 +59,13 @@ function setDelay(difficulty) {
  * chooseHole(holes) //> returns one of the 9 holes that you defined
  */
 function chooseHole(holes) {
-  const index = randomInteger(0, 8);
-  const hole = holes[index];
-  while (hole === lastHole) {
+  let index = randomInteger(0, 8);
+
+  while (index === lastHole) {
     index = randomInteger(0, 8);
-    hole = holes[index];
   }
-  lastHole = hole;
-  return hole;
+  lastHole = index;
+  return holes[index];;
 }
 
 /**
@@ -104,8 +103,8 @@ function gameOver() {
 *
 */
 function showUp() {
-  let delay = setDelay(difficulty); // TODO: Update so that it uses setDelay()
-  const hole = chooseHole();  // TODO: Update so that it use chooseHole()
+  let delay = setDelay(difficulty);
+  const hole = chooseHole(holes);
   return showAndHide(hole, delay);
 }
 
@@ -149,7 +148,7 @@ function toggleVisibility(hole){
 */
 function updateScore() {
   points++;
-  score.textContent = points;
+  score.innerHTML = points;
   return points;
 }
 
@@ -172,13 +171,10 @@ function clearScore() {
 *
 */
 function updateTimer() {
-  // TODO: Write your code here.
-  // hint: this code is provided to you in the instructions.
   if (time > 0) {
     time--;
     timerDisplay.textContent = time;
   }
-  
   return time;
 }
 
@@ -201,7 +197,7 @@ function startTimer() {
 * the moles.
 *
 */
-function whack(event) {
+function whack() {
   updateScore();
   return points;
 }
@@ -212,9 +208,7 @@ function whack(event) {
 * for an example on how to set event listeners using a for loop.
 */
 function setEventListeners(){
-  for (let mole in moles) {
-    mole.addEventListener("click", whack);
-  }
+  moles.forEach(mole => mole.addEventListener("click", whack));
   return moles;
 }
 
@@ -248,8 +242,11 @@ function stopGame(){
 *
 */
 function startGame(){
+  setEventListeners();
   setDuration(10);
   showUp();
+  startTimer();
+  clearScore();
   return "game started";
 }
 
